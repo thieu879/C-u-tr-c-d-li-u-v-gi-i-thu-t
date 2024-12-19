@@ -12,7 +12,7 @@ Node *createNode(int value)
     Node *newNode = (Node *)malloc(sizeof(Node));
     if (!newNode)
     {
-        printf("Không d? b? nh? d? c?p phát!\n");
+        printf("Khï¿½ng d? b? nh? d? c?p phï¿½t!\n");   
         exit(1);
     }
     newNode->data = value;
@@ -27,7 +27,7 @@ Node *createListLink(int n)
     for (i = 0; i < n; i++)
     {
         int value;
-        printf("Nh?p giá tr? cho ph?n t? %d: ", i + 1);
+        printf("Nh?p giï¿½ tr? cho ph?n t? %d: ", i + 1);
         scanf("%d", &value);
         Node *newNode = createNode(value);
         if (head == NULL)
@@ -48,7 +48,7 @@ Node *deleteHead(Node *head)
 {
     if (head == NULL)
     {
-        printf("Danh sách tr?ng, không th? xóa ph?n t? d?u tiên!\n");
+        printf("Danh sï¿½ch tr?ng, khï¿½ng th? xï¿½a ph?n t? d?u tiï¿½n!\n");
         return NULL;
     }
     Node *temp = head;
@@ -56,12 +56,33 @@ Node *deleteHead(Node *head)
     free(temp);
     return head;
 }
+Node *deleteTail(Node *head)
+{
+    if (head == NULL)
+    {
+        printf("Danh sÃ¡ch rá»—ng, khÃ´ng cÃ³ gÃ¬ Ä‘á»ƒ xÃ³a.\n");
+        return NULL;
+    }
+    if (head->next == NULL)
+    { // Chá»‰ cÃ³ má»™t pháº§n tá»­
+        free(head);
+        return NULL;
+    }
 
+    Node *temp = head;
+    while (temp->next->next != NULL)
+    {
+        temp = temp->next; // Di chuyá»ƒn tá»›i node trÆ°á»›c node cuá»‘i cÃ¹ng
+    }
+    free(temp->next); // XÃ³a node cuá»‘i
+    temp->next = NULL;
+    return head;
+}
 void printLinkList(Node *head)
 {
     if (head == NULL)
     {
-        printf("Danh sách tr?ng\n");
+        printf("Danh sï¿½ch tr?ng\n");
         return;
     }
     Node *temp = head;
@@ -81,12 +102,12 @@ int main()
 
     Node *head = createListLink(n);
 
-    printf("Danh sách ban d?u: ");
+    printf("Danh sï¿½ch ban d?u: ");
     printLinkList(head);
 
     head = deleteHead(head);
 
-    printf("Danh sách sau khi xóa ph?n t? d?u tiên: ");
+    printf("Danh sï¿½ch sau khi xï¿½a ph?n t? d?u tiï¿½n: ");
     printLinkList(head);
 
     return 0;
